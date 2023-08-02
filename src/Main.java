@@ -1,3 +1,8 @@
+
+import java.util.Random;
+import java.util.Scanner;
+
+
 public class Main{
     
     public static void main(String[] args) {
@@ -8,14 +13,18 @@ public class Main{
         int tipoFuego = Pokemones.FUEGO;
         int tipoAgua = Pokemones.AGUA;
         
-        System.out.println("Información del Pokémon tipo Normal:");
+        System.out.println("Informaciï¿½n del Pokï¿½mon tipo Normal:");
         System.out.println(Pokemones.obtenerDatosTipo(tipoNormal));
         
-        System.out.println("\nInformación del Pokémon tipo Fuego:");
+        System.out.println("\nInformaciï¿½n del Pokï¿½mon tipo Fuego:");
         System.out.println(Pokemones.obtenerDatosTipo(tipoFuego));
         
-        System.out.println("\nInformación del Pokémon tipo Agua:");
+        System.out.println("\nInformaciï¿½n del Pokï¿½mon tipo Agua:");
         System.out.println(Pokemones.obtenerDatosTipo(tipoAgua));
+        
+        Pokedex.main(args);
+        
+        
+    }
 
     }
-}
