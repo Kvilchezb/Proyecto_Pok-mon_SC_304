@@ -55,7 +55,7 @@ public class Combate extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon backgroundImage = new ImageIcon("src/img/Fondo.png");
+                ImageIcon backgroundImage = new ImageIcon("src/imgReserva/Fondo.png");
                 g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), null);
             }
         };

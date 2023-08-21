@@ -1,6 +1,5 @@
 import java.util.EmptyStackException;
 
-
 class CustomStack<T> {
     private static class Node<T> {
         T data;
@@ -78,7 +77,6 @@ class Pokedex {
         }
     }
 }
-
 /*la clase CustomStack utiliza una lista enlazada para implementar una pila dinámica. 
 La clase Pokedex utiliza esta pila para almacenar Pokémon, y ahora también verifica 
 el tamaño máximo de la Pokedex antes de agregar un Pokémon.*/
