@@ -1,43 +1,58 @@
 // Clase base para Pokémon
-class Pokemon {
-    String name;
-    int hp;
-    int attack;
-    int defense;
-    int specialAttack;
-    int specialDefense;
+public class Pokemon {
+    
+    public String nombre;
+    public String tipo;
+    public int puntosVida;
+    public int ataque;
+    public int defensa;
+    public int ataqueEspecial;
+    public int defensaEspecial;
+    public String imgFrente;
+    public String imgEspalda;
 
-    // Constructor
-    public Pokemon(String name, int hp, int attack, int defense, int specialAttack, int specialDefense) {
-        this.name = name;
-        this.hp = hp;
-        this.attack = attack;
-        this.defense = defense;
-        this.specialAttack = specialAttack;
-        this.specialDefense = specialDefense;
+    public Pokemon(String nombre, String tipo, int puntosVida, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, String imgFrente, String imgEspalda) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.puntosVida = puntosVida;
+        this.ataque = ataque;
+        this.defensa = defensa;
+        this.ataqueEspecial = ataqueEspecial;
+        this.defensaEspecial = defensaEspecial;
+        this.imgFrente = imgFrente;
+        this.imgEspalda = imgEspalda;
     }
-}
 
-// Clase para Pokémon de tipo Normal
-class NormalPokemon extends Pokemon {
-    // Constructor
-    public NormalPokemon(String name) {
-        super(name, 150, 50, 35, 70, 60);
+    public String getNombre() {
+        return nombre;
     }
-}
 
-// Clase para Pokémon de tipo Fuego
-class FirePokemon extends Pokemon {
-    // Constructor
-    public FirePokemon(String name) {
-        super(name, 115, 70, 45, 80, 60);
+    public String getTipo() {
+        return tipo;
     }
-}
 
-// Clase para Pokémon de tipo Agua
-class WaterPokemon extends Pokemon {
-    // Constructor
-    public WaterPokemon(String name) {
-        super(name, 190, 55, 45, 75, 65);
+    public int getPuntosVida() {
+        return puntosVida;
     }
+
+    public int getAtaque() {
+        return ataque;
+    }
+
+    public int getDefensa() {
+        return defensa;
+    }
+
+    public int getAtaqueEspecial() {
+        return ataqueEspecial;
+    }
+
+    public int getDefensaEspecial() {
+        return defensaEspecial;
+    }
+
+    String imgFrente(String srcimgEeveeFrentegif) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
 }

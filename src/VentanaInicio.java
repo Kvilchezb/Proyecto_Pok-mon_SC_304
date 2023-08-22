@@ -35,7 +35,7 @@ public class VentanaInicio extends JFrame {
         btnContinuar.setBounds(350, 500, 100, 30); // Establecer posición y tamaño del botón
         btnContinuar.addActionListener(e -> {
             // Al presionar el botón "Continuar", creamos una instancia de la ventana Combate y la hacemos visible
-            Combate combate = new Combate();
+            PokedexSwing pokedexSwing = new PokedexSwing();
             setVisible(false); // Ocultamos la ventana actual (ventana de inicio)
             detenerMusica(); // Detenemos la música al cambiar de ventana
         });

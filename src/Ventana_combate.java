@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 //Ventana para el combate
-public class Combate extends JFrame {
+public class Ventana_combate extends JFrame {
      
     //Botones
     private JButton BotonDeAtaque; 
@@ -44,7 +44,7 @@ public class Combate extends JFrame {
     private PokemonMovimientos munchlax = new PokemonMovimientos("Munchlax", "Golpe Cuerpo", "Mega Impacto", "Descanso", "Hiperrayo");
     private PokemonMovimientos eevee = new PokemonMovimientos("Eevee", "Ataque Rápido", "Mordisco", "Refuerzo", "Doble Filo");
     
-    public Combate() {
+    public Ventana_combate() {
         super("Menú de Batalla de Pokémon");
         setSize(450, 450);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -69,7 +69,7 @@ public class Combate extends JFrame {
 
         // Crear el JLabel para mostrar la imagen del Pokémon enemigo
         ImagenPokemonEnemigo = new JLabel();
-        ImageIcon enemyPokemonImage = new ImageIcon("src/img/blastoise.gif");
+        ImageIcon enemyPokemonImage = new ImageIcon("src/img/BlastoiseFrente.gif");
         ImagenPokemonEnemigo.setIcon(enemyPokemonImage);
 
         // Crear la barra de vida para el Pokémon del enemigo
@@ -105,22 +105,22 @@ public class Combate extends JFrame {
 
         // Crear el JLabel para mostrar la imagen del Pokémon del jugador 1
         ImagenPokemonJugador1 = new JLabel();
-        ImageIcon playerPokemonImage1 = new ImageIcon("src/img/charizard.gif");
+        ImageIcon playerPokemonImage1 = new ImageIcon("src/img/CharizardEspalda.gif");
         ImagenPokemonJugador1.setIcon(playerPokemonImage1);
         
         // Crear el JLabel para mostrar la imagen del Pokémon del jugador 2
         ImagenPokemonJugador2 = new JLabel();
-        ImageIcon playerPokemonImage2 = new ImageIcon("src/img/Bidoof.gif");
+        ImageIcon playerPokemonImage2 = new ImageIcon("src/img/BidoofEspalda.gif");
         ImagenPokemonJugador2.setIcon(playerPokemonImage2);
         
         // Crear el JLabel para mostrar la imagen del Pokémon del jugador 3
         ImagenPokemonJugador3 = new JLabel();
-        ImageIcon playerPokemonImage3 = new ImageIcon("src/img/Munchlax.gif");
+        ImageIcon playerPokemonImage3 = new ImageIcon("src/img/MunchlaxEspalda.gif");
         ImagenPokemonJugador3.setIcon(playerPokemonImage3);
         
         // Crear el JLabel para mostrar la imagen del Pokémon del jugador 4
         ImagenPokemonJugador4 = new JLabel();
-        ImageIcon playerPokemonImage4 = new ImageIcon("src/img/Eevee.gif");
+        ImageIcon playerPokemonImage4 = new ImageIcon("src/img/EeveeEspalda.gif");
         ImagenPokemonJugador4.setIcon(playerPokemonImage4);
 
         // Crear la barra de vida para el Pokémon del jugador 1
