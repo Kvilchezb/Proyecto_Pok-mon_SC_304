@@ -2,9 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class PokedexSwing extends JFrame {
-    //Todos los Private
+    
+    
+    
+    public static Pila<Pokemon> pila_jugador = new Pila<>();
+    
+    public static Pila<Pokemon> pila_IA = new Pila<>(); 
+    
     
     //Imagen de los Pokémon
     //Normal
@@ -24,7 +31,7 @@ public class PokedexSwing extends JFrame {
     
     //Creamos 3 pokemones Normales
     Pokemon PN1_J = new Pokemon ("Eevee","Normal", 150,50,35,70,60,"src/img/EeveeFrente.gif","src/img/EeveeEspalda.gif");
-    Pokemon PN2_J = new Pokemon ("Monchlax","Normal", 150,50,35,70,60,"src/img/MonchlaxFrente.gif","src/img/MonchlaxEspalda.gif");
+    Pokemon PN2_J = new Pokemon ("Munchlax","Normal", 150,50,35,70,60,"src/img/MunchlaxFrente.gif","src/img/MunchlaxEspalda.gif");
     Pokemon PN3_J = new Pokemon ("Bidoof","Normal", 150,50,35,70,60,"src/img/BidoofFrente.gif","src/img/BidoofEspalda.gif");
     
     //Creamos 3 pokemones de Fuego
@@ -33,19 +40,19 @@ public class PokedexSwing extends JFrame {
     Pokemon PF3_J = new Pokemon ("Tepig","Fuego", 115,70,45,80,60,"src/img/TepigFrente.gif","src/img/TepigEspalda.gif");
     
     //Creamos 3 pokemones de Agua
-    Pokemon PA1_J = new Pokemon ("Piplup","Agua", 190,55,45,75,65,"src/img/Piplup.gif","src/img/PiplupEspalda.gif");
+    Pokemon PA1_J = new Pokemon ("Piplup","Agua", 190,55,45,75,65,"src/img/PiplupFrente.gif","src/img/PiplupEspalda.gif");
     Pokemon PA2_J = new Pokemon ("Magikarp","Agua", 190,55,45,75,65,"src/img/MagikarpFrente.gif","src/img/MagikarpEspalda.gif");
     Pokemon PA3_J = new Pokemon ("Blastoise","Agua", 190,55,45,75,65,"src/img/BlastoiseFrente.gif","src/img/BlastoiseEspalda.gif");
     
-    //Creamos la pila para Jugador
-    Pila<Pokemon> pila_jugador = new Pila<>();
+    
+    
     
     
     //Creamos las instancias de los Pokemones para la IA
     
     //Creamos 3 pokemones Normales
     Pokemon PN1_IA = new Pokemon ("Eevee","Normal", 150,50,35,70,60,"src/img/EeveeFrente.gif","src/img/EeveeEspalda.gif");
-    Pokemon PN2_IA = new Pokemon ("Monchlax","Normal", 150,50,35,70,60,"src/img/MonchlaxFrente.gif","src/img/MonchlaxEspalda.gif");
+    Pokemon PN2_IA = new Pokemon ("Monchlax","Normal", 150,50,35,70,60,"src/img/MunchlaxFrente.gif","src/img/MunchlaxEspalda.gif");
     Pokemon PN3_IA = new Pokemon ("Bidoof","Normal", 150,50,35,70,60,"src/img/BidoofFrente.gif","src/img/BidoofEspalda.gif");
     
     //Creamos 3 pokemones de Fuego
@@ -54,14 +61,23 @@ public class PokedexSwing extends JFrame {
     Pokemon PF3_IA = new Pokemon ("Tepig","Fuego", 115,70,45,80,60,"src/img/TepigFrente.gif","src/img/TepigEspalda.gif");
     
     //Creamos 3 pokemones de Agua
-    Pokemon PA1_IA = new Pokemon ("Piplup","Agua", 190,55,45,75,65,"src/img/Piplup.gif","src/img/PiplupEspalda.gif");
+    Pokemon PA1_IA = new Pokemon ("Piplup","Agua", 190,55,45,75,65,"src/img/PiplupFrente.gif","src/img/PiplupEspalda.gif");
     Pokemon PA2_IA = new Pokemon ("Magikarp","Agua", 190,55,45,75,65,"src/img/MagikarpFrente.gif","src/img/MagikarpEspalda.gif");
     Pokemon PA3_IA = new Pokemon ("Blastoise","Agua", 190,55,45,75,65,"src/img/BlastoiseFrente.gif","src/img/BlastoiseEspalda.gif");
     
-    //Creamos la pila para la IA
-    Pila<Pokemon> pila_IA = new Pila<>(); 
     
+    
+    
+    
+    
+    
+    int botonesDeshabilitados = 0; // Variable para llevar un conteo de botones precionados
+    boolean botonContinuarHabilitado = false; // Variable para controlar si el botón "BotonContinuar" debe habilitarse
+    
+
     public PokedexSwing() {
+        
+         
         
         
         //Este es el Panel principal donde se desarrolla todo
@@ -214,7 +230,8 @@ public class PokedexSwing extends JFrame {
         
         //Boton para Continuar
         JButton BotonContinuar = createButton("Continuar", 350, 500);
-        
+        BotonContinuar.setEnabled(false);
+        pila_IA.push(PN1_IA);
         
         //ACCIONES DE LOS BOTONES
         
@@ -223,21 +240,86 @@ public class PokedexSwing extends JFrame {
         BotonEevee.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //AQUÍ DAMOS LAS INSTRUCCIONES
-                JOptionPane.showMessageDialog(PokedexSwing.this, "Has seleccionado a Eevee");
+                
+                //Agregamos el pokemon a la pila
+                pila_jugador.push(PN1_J);
+                pila_IA.push(PF3_IA);
+                //Desabilitamios el boton
+                BotonEevee.setEnabled(false);
+                
+                // Incrementar el conteo de botones deshabilitados
+                botonesDeshabilitados++;
+        
+                // Verificar si se han deshabilitado 4 botones, y si es así, deshabilitar todos los botones
+                if (botonesDeshabilitados >= 4) {
+                  //Desabilitar todos los botones
+                  BotonEevee.setEnabled(false);
+                  BotonMunchlax.setEnabled(false);
+                  BotonBidoof.setEnabled(false);
+                  BotonCharizard.setEnabled(false);
+                  BotonTorchic.setEnabled(false);
+                  BotonTepig.setEnabled(false);
+                  BotonPiplup.setEnabled(false);
+                  BotonMagikarp.setEnabled(false);
+                  BotonBlastoise.setEnabled(false);
+                  BotonContinuar.setEnabled(true); // Habilitar el botón "BotonContinuar"
+                }
+                
             }
         });
         //BotonMunchlax
         BotonMunchlax.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //AQUÍ DAMOS LAS INSTRUCCIONES
-                JOptionPane.showMessageDialog(PokedexSwing.this, "Has seleccionado a Munchlax");
+               pila_jugador.push(PN2_J);
+               pila_IA.push(PF2_IA);
+                BotonMunchlax.setEnabled(false);
+                
+                // Incrementar el conteo de botones deshabilitados
+                botonesDeshabilitados++;
+        
+                // Verificar si se han deshabilitado 4 botones, y si es así, deshabilitar todos los botones
+                if (botonesDeshabilitados >= 4) {
+                  //Desabilitar todos los botones
+                  BotonEevee.setEnabled(false);
+                  BotonMunchlax.setEnabled(false);
+                  BotonBidoof.setEnabled(false);
+                  BotonCharizard.setEnabled(false);
+                  BotonTorchic.setEnabled(false);
+                  BotonTepig.setEnabled(false);
+                  BotonPiplup.setEnabled(false);
+                  BotonMagikarp.setEnabled(false);
+                  BotonBlastoise.setEnabled(false);
+                  BotonContinuar.setEnabled(true); // Habilitar el botón "BotonContinuar"
+                }
             }
         });
         //BotonBidoof
         BotonBidoof.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //AQUÍ DAMOS LAS INSTRUCCIONES
-                JOptionPane.showMessageDialog(PokedexSwing.this, "Has seleccionado a Bidoof");
+                pila_jugador.push(PN3_J);
+                pila_IA.push(PF1_IA);
+                BotonBidoof.setEnabled(false);
+                
+                
+                // Incrementar el conteo de botones deshabilitados
+                botonesDeshabilitados++;
+        
+                // Verificar si se han deshabilitado 4 botones, y si es así, deshabilitar todos los botones
+                if (botonesDeshabilitados >= 4) {
+                  //Desabilitar todos los botones
+                  BotonEevee.setEnabled(false);
+                  BotonMunchlax.setEnabled(false);
+                  BotonBidoof.setEnabled(false);
+                  BotonCharizard.setEnabled(false);
+                  BotonTorchic.setEnabled(false);
+                  BotonTepig.setEnabled(false);
+                  BotonPiplup.setEnabled(false);
+                  BotonMagikarp.setEnabled(false);
+                  BotonBlastoise.setEnabled(false);
+                  BotonContinuar.setEnabled(true); // Habilitar el botón "BotonContinuar"
+                }
             }
         });
         
@@ -246,21 +328,84 @@ public class PokedexSwing extends JFrame {
         BotonCharizard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //AQUÍ DAMOS LAS INSTRUCCIONES
-                JOptionPane.showMessageDialog(PokedexSwing.this, "Has seleccionado a Charizard");
+                pila_jugador.push(PF1_J);
+                pila_IA.push(PA3_IA);
+                BotonCharizard.setEnabled(false);
+                
+                
+                // Incrementar el conteo de botones deshabilitados
+                botonesDeshabilitados++;
+        
+                // Verificar si se han deshabilitado 4 botones, y si es así, deshabilitar todos los botones
+                if (botonesDeshabilitados >= 4) {
+                  //Desabilitar todos los botones
+                  BotonEevee.setEnabled(false);
+                  BotonMunchlax.setEnabled(false);
+                  BotonBidoof.setEnabled(false);
+                  BotonCharizard.setEnabled(false);
+                  BotonTorchic.setEnabled(false);
+                  BotonTepig.setEnabled(false);
+                  BotonPiplup.setEnabled(false);
+                  BotonMagikarp.setEnabled(false);
+                  BotonBlastoise.setEnabled(false);
+                  BotonContinuar.setEnabled(true); // Habilitar el botón "BotonContinuar"
+                }
             }
         });
         //BotonTorchic
         BotonTorchic.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //AQUÍ DAMOS LAS INSTRUCCIONES
-                JOptionPane.showMessageDialog(PokedexSwing.this, "Has seleccionado a Torchic");
+                pila_jugador.push(PF2_J);
+                pila_IA.push(PA2_IA);
+                BotonTorchic.setEnabled(false);
+                
+                
+                // Incrementar el conteo de botones deshabilitados
+                botonesDeshabilitados++;
+        
+                // Verificar si se han deshabilitado 4 botones, y si es así, deshabilitar todos los botones
+                if (botonesDeshabilitados >= 4) {
+                  //Desabilitar todos los botones
+                  BotonEevee.setEnabled(false);
+                  BotonMunchlax.setEnabled(false);
+                  BotonBidoof.setEnabled(false);
+                  BotonCharizard.setEnabled(false);
+                  BotonTorchic.setEnabled(false);
+                  BotonTepig.setEnabled(false);
+                  BotonPiplup.setEnabled(false);
+                  BotonMagikarp.setEnabled(false);
+                  BotonBlastoise.setEnabled(false);
+                  BotonContinuar.setEnabled(true); // Habilitar el botón "BotonContinuar"
+                }
             }
         });
         //BotonTepig
         BotonTepig.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //AQUÍ DAMOS LAS INSTRUCCIONES
-                JOptionPane.showMessageDialog(PokedexSwing.this, "Has seleccionado a Tepig");
+                pila_jugador.push(PF3_J);
+                pila_IA.push(PA1_IA);
+                BotonTepig.setEnabled(false);
+                
+                
+                // Incrementar el conteo de botones deshabilitados
+                botonesDeshabilitados++;
+        
+                // Verificar si se han deshabilitado 4 botones, y si es así, deshabilitar todos los botones
+                if (botonesDeshabilitados >= 4) {
+                  //Desabilitar todos los botones
+                  BotonEevee.setEnabled(false);
+                  BotonMunchlax.setEnabled(false);
+                  BotonBidoof.setEnabled(false);
+                  BotonCharizard.setEnabled(false);
+                  BotonTorchic.setEnabled(false);
+                  BotonTepig.setEnabled(false);
+                  BotonPiplup.setEnabled(false);
+                  BotonMagikarp.setEnabled(false);
+                  BotonBlastoise.setEnabled(false);
+                  BotonContinuar.setEnabled(true); // Habilitar el botón "BotonContinuar"
+                }
             }
         });
         
@@ -269,21 +414,84 @@ public class PokedexSwing extends JFrame {
         BotonPiplup.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //AQUÍ DAMOS LAS INSTRUCCIONES
-                JOptionPane.showMessageDialog(PokedexSwing.this, "Has seleccionado a Piplup");
+                pila_jugador.push(PA1_J);
+                pila_IA.push(PN1_IA);
+                BotonPiplup.setEnabled(false);
+                
+                
+                // Incrementar el conteo de botones deshabilitados
+                botonesDeshabilitados++;
+        
+                // Verificar si se han deshabilitado 4 botones, y si es así, deshabilitar todos los botones
+                if (botonesDeshabilitados >= 4) {
+                  //Desabilitar todos los botones
+                  BotonEevee.setEnabled(false);
+                  BotonMunchlax.setEnabled(false);
+                  BotonBidoof.setEnabled(false);
+                  BotonCharizard.setEnabled(false);
+                  BotonTorchic.setEnabled(false);
+                  BotonTepig.setEnabled(false);
+                  BotonPiplup.setEnabled(false);
+                  BotonMagikarp.setEnabled(false);
+                  BotonBlastoise.setEnabled(false);
+                  BotonContinuar.setEnabled(true); // Habilitar el botón "BotonContinuar"
+                }
             }
         });
         //BotonMagikarp
         BotonMagikarp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //AQUÍ DAMOS LAS INSTRUCCIONES
-                JOptionPane.showMessageDialog(PokedexSwing.this, "Has seleccionado a Magikarp");
+                pila_jugador.push(PA2_J);
+                pila_IA.push(PN2_IA);
+                BotonMagikarp.setEnabled(false);
+                
+                
+                // Incrementar el conteo de botones deshabilitados
+                botonesDeshabilitados++;
+        
+                // Verificar si se han deshabilitado 4 botones, y si es así, deshabilitar todos los botones
+                if (botonesDeshabilitados >= 4) {
+                  //Desabilitar todos los botones
+                  BotonEevee.setEnabled(false);
+                  BotonMunchlax.setEnabled(false);
+                  BotonBidoof.setEnabled(false);
+                  BotonCharizard.setEnabled(false);
+                  BotonTorchic.setEnabled(false);
+                  BotonTepig.setEnabled(false);
+                  BotonPiplup.setEnabled(false);
+                  BotonMagikarp.setEnabled(false);
+                  BotonBlastoise.setEnabled(false);
+                  BotonContinuar.setEnabled(true); // Habilitar el botón "BotonContinuar"
+                }
             }
         });
         //BotonBlastoise
         BotonBlastoise.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //AQUÍ DAMOS LAS INSTRUCCIONES
-                JOptionPane.showMessageDialog(PokedexSwing.this, "Has seleccionado a Blastoise");
+                pila_jugador.push(PA3_J);
+                pila_IA.push(PN3_IA);
+                BotonBlastoise.setEnabled(false);
+                
+                // Incrementar el conteo de botones deshabilitados
+                botonesDeshabilitados++;
+        
+                // Verificar si se han deshabilitado 4 botones, y si es así, deshabilitar todos los botones
+                if (botonesDeshabilitados >= 4) {
+                  //Desabilitar todos los botones
+                  BotonEevee.setEnabled(false);
+                  BotonMunchlax.setEnabled(false);
+                  BotonBidoof.setEnabled(false);
+                  BotonCharizard.setEnabled(false);
+                  BotonTorchic.setEnabled(false);
+                  BotonTepig.setEnabled(false);
+                  BotonPiplup.setEnabled(false);
+                  BotonMagikarp.setEnabled(false);
+                  BotonBlastoise.setEnabled(false);
+                  BotonContinuar.setEnabled(true); // Habilitar el botón "BotonContinuar"
+                }
+                
             }
         });
         
@@ -292,13 +500,23 @@ public class PokedexSwing extends JFrame {
         BotonContinuar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //AQUÍ DAMOS LAS INSTRUCCIONES
-                Ventana_combate combate = new Ventana_combate();
-                setVisible(false); // Ocultamos la ventana actual (ventana de inicio)
+                
+                    Ventana_combate combate = new Ventana_combate();
+                    setVisible(false); // Ocultamos la ventana actual (ventana de inicio)
+                    
+                    
+                    
+                    
+                    
             }
         });
         
         // Mostrar la ventana después de agregar todos los componentes
+        
+  
         setVisible(true);
+          
+               
     }
     
     private void AgregarTituloLabel(String title, int x, int y, int fontSize) {

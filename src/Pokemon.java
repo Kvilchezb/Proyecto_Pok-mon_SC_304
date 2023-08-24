@@ -5,6 +5,7 @@ public class Pokemon {
     public String tipo;
     public int puntosVida;
     public int ataque;
+   
     public int defensa;
     public int ataqueEspecial;
     public int defensaEspecial;
@@ -16,11 +17,13 @@ public class Pokemon {
         this.tipo = tipo;
         this.puntosVida = puntosVida;
         this.ataque = ataque;
+        
         this.defensa = defensa;
         this.ataqueEspecial = ataqueEspecial;
         this.defensaEspecial = defensaEspecial;
         this.imgFrente = imgFrente;
         this.imgEspalda = imgEspalda;
+        
     }
 
     public String getNombre() {
@@ -39,6 +42,8 @@ public class Pokemon {
         return ataque;
     }
 
+   
+    
     public int getDefensa() {
         return defensa;
     }
@@ -49,10 +54,14 @@ public class Pokemon {
 
     public int getDefensaEspecial() {
         return defensaEspecial;
-    }
-
-    String imgFrente(String srcimgEeveeFrentegif) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    } 
+    
+    public String getimgFrente() {
+        return imgFrente;
+    } 
+    
+    public String getimgEspalda() {
+        return imgEspalda;
+    } 
     
 }

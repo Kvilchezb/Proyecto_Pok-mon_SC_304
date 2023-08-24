@@ -1,11 +1,7 @@
-import java.util.Random;
-import java.util.Scanner;
-import javax.swing.SwingUtilities;
-
-
 public class Main{
     
     public static void main(String[] args) {
+        //Ventana_combate ventanaCombate = new Ventana_combate();
         VentanaInicio ventanaInicio = new VentanaInicio();
     }
 }

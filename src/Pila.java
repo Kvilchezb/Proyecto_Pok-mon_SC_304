@@ -1,77 +1,102 @@
 public class Pila<T> {
-    // Definición de los nodos que formarán la estructura de la pila
-    private Nodo<T> mainTop; // Nodo superior de la pila principal
-    private Nodo<T> auxTop;  // Nodo superior de la pila auxiliar
+    private Nodo<T> mainTop;
+    private Nodo<T> auxTop;
+    private int currentIndex; // Variable para mantener el índice actual
 
-    // Constructor que inicializa la pila vacía
     public Pila() {
         mainTop = null;
         auxTop = null;
+        currentIndex = 0; // Inicializar el índice en 0
     }
 
-    // Método para agregar un elemento a la pila principal
     public void push(T item) {
-        Nodo<T> newNode = new Nodo<>(item); // Crear un nuevo nodo con el elemento
+        Nodo<T> newNode = new Nodo<>(item, currentIndex); // Pasar el índice al constructor
+        currentIndex++; // Incrementar el índice
 
         if (mainTop == null) {
-            mainTop = newNode; // Si la pila principal está vacía, el nuevo nodo es el nodo superior
+            mainTop = newNode;
         } else {
-            newNode.next = mainTop; // Conectar el nuevo nodo al nodo superior actual
-            mainTop = newNode;      // El nuevo nodo ahora es el nodo superior
+            newNode.next = mainTop;
+            mainTop = newNode;
         }
     }
 
-    // Método para eliminar y devolver el elemento del nodo superior de la pila principal
     public T eliminar() {
         if (mainTop == null) {
             throw new IllegalStateException("Main stack is empty");
         }
 
-        T item = mainTop.data; // Obtener el elemento del nodo superior
-        mainTop = mainTop.next; // Actualizar el nodo superior al siguiente nodo
+        T item = mainTop.data;
+        mainTop = mainTop.next;
+        currentIndex--; // Decrementar el índice al eliminar un elemento
+        
+        System.out.println("Se ha eliminado el elemento de la pila");
 
         return item;
     }
 
-    // Método para mover elementos de la pila principal a la pila auxiliar
+    public void eliminarPrimerElemento() {
+        if (mainTop != null) {
+            mainTop = mainTop.next;
+        }
+    }
+
     public void moveraAux() {
-        while (mainTop != null) {
-            Nodo<T> newNode = new Nodo<>(mainTop.data); // Crear un nuevo nodo con el mismo elemento
+    Nodo<T> current = mainTop; // Nodo actual en la pila principal
+    
+    while (current != null) {
+        Nodo<T> newNode = new Nodo<>(current.data, current.index); // Crear un nuevo nodo con el mismo elemento e índice
+        newNode.next = auxTop; // Conectar el nuevo nodo al nodo superior actual de la pila auxiliar
+        auxTop = newNode;      // El nuevo nodo ahora es el nodo superior de la pila auxiliar
+        
+        current = current.next; // Mover al siguiente nodo en la pila principal
+    }
+    
+    mainTop = null; // Vaciar la pila principal después de mover todos los elementos
+}
 
-            if (auxTop == null) {
-                auxTop = newNode; // Si la pila auxiliar está vacía, el nuevo nodo es el nodo superior
+    public void regresaralMain(int targetIndex) {
+        Nodo<T> prev = null;
+        Nodo<T> current = auxTop;
+
+        // Encontrar el nodo con el índice objetivo en la pila auxiliar
+        while (current != null && current.index != targetIndex) {
+            prev = current;
+            current = current.next;
+        }
+
+        if (current != null) {
+            if (prev != null) {
+                prev.next = current.next; // Saltar el nodo objetivo en la pila auxiliar
             } else {
-                newNode.next = auxTop; // Conectar el nuevo nodo al nodo superior actual de la pila auxiliar
-                auxTop = newNode;      // El nuevo nodo ahora es el nodo superior de la pila auxiliar
+                auxTop = auxTop.next; // Si el nodo objetivo es el superior, actualizar auxTop
             }
 
-            mainTop = mainTop.next; // Mover al siguiente nodo en la pila principal
+            current.next = mainTop; // Conectar el nodo objetivo al nodo superior de la pila principal
+            mainTop = current;      // El nodo objetivo ahora es el nodo superior de la pila principal
         }
     }
 
-    // Método para mover elementos de la pila auxiliar de regreso a la pila principal
-    public void regresaralMain() {
-        while (auxTop != null) {
-            Nodo<T> newNode = new Nodo<>(auxTop.data); // Crear un nuevo nodo con el mismo elemento
-
-            if (mainTop == null) {
-                mainTop = newNode; // Si la pila principal está vacía, el nuevo nodo es el nodo superior
-            } else {
-                newNode.next = mainTop; // Conectar el nuevo nodo al nodo superior actual de la pila principal
-                mainTop = newNode;      // El nuevo nodo ahora es el nodo superior de la pila principal
-            }
-
-            auxTop = auxTop.next; // Mover al siguiente nodo en la pila auxiliar
+    public T peek() {
+        if (mainTop == null) {
+            throw new IllegalStateException("Main stack is empty");
         }
+        
+        return mainTop.data;
+    } 
+
+    public boolean isEmpty() {
+        return mainTop == null;
     }
 
-    // Clase interna que representa los nodos de la pila
     private static class Nodo<T> {
-        T data;           // El elemento almacenado en el nodo
-        Nodo<T> next;     // Referencia al siguiente nodo en la pila
+        T data;
+        Nodo<T> next;
+        int index;
 
-        public Nodo(T data) {
+        public Nodo(T data, int index) {
             this.data = data;
+            this.index = index;
             this.next = null;
         }
     }
